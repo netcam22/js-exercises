@@ -163,4 +163,17 @@ describe("hasMPostCode", () => {
     };
     expect(hasMPostCode(person)).toBe(false);
   });
+
+  test("returns false if the postcode starts with MM but is not for Manchester", () => {
+    const person = {
+      name: "Jan",
+      age: 50,
+      address: {
+        line1: "11 Book Street",
+        city: "Madeup",
+        postCode: "MM22 5MM",
+      },
+    };
+    expect(hasMPostCode(person)).toBe(false);
+  });
 });
