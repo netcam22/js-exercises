@@ -23,5 +23,5 @@ export function countSheep(arr) {
 
 export function hasMPostCode(person) {
   if (person === undefined) throw new Error("person is required");
-  return /M{1}\d+/.test(person.address.postCode);
+  return /^M{1}\d+/.test(person.address.postCode);
 }
