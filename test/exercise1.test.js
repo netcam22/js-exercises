@@ -20,7 +20,14 @@ describe("getFillings", () => {
       fillings: ["smoked salmon", "dill"],
       accompaniment: "wedges",
     };
+    const sandwich3 = {
+      bread: null,
+      fillings: [],
+      accompaniment: "",
+    };
     expect(getFillings(sandwich2)).toEqual(["smoked salmon", "dill"]);
+    expect(getFillings(sandwich2)).toEqual(["smoked salmon", "dill"]);
+    expect(getFillings(sandwich3)).toEqual([]);
   });
 });
 
