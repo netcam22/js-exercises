@@ -49,7 +49,7 @@ describe("isFromManchester", () => {
     };
     expect(isFromManchester(person)).toBe(false);
   });
-  test.only("returns true if the person is from Manchester", () => {
+  test("returns false if manchester does not use title case", () => {
     const person = {
       name: "Fred",
       city: "manchester",
