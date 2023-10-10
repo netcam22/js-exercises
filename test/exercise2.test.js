@@ -7,19 +7,19 @@ import {
 } from "../challenges/exercise2";
 
 describe("camelCaseWords", () => {
-  test.only("camel cases a single word (i.e. no capital letter at beginning)", () => {
+  test("camel cases a single word (i.e. no capital letter at beginning)", () => {
     expect(camelCaseWords(["my"])).toBe("my");
   });
 
-  test.only("camel cases two words (i.e. second word is capitalized)", () => {
+  test("camel cases two words (i.e. second word is capitalized)", () => {
     expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
   });
 
-  test.only("camel case upper case words (i.e. all words are initially capitalized)", () => {
+  test("camel case upper case words (i.e. all words are initially capitalized)", () => {
     expect(camelCaseWords(["MY", "CAR", "IS", "RED"])).toBe("myCarIsRed");
   });
 
-  test.only("camel cases two+ words (i.e. all words after 1st are capitalized)", () => {
+  test("camel cases two+ words (i.e. all words after 1st are capitalized)", () => {
     expect(camelCaseWords(["my", "variable"])).toBe("myVariable");
     expect(camelCaseWords(["my", "variable", "name"])).toBe("myVariableName");
     expect(camelCaseWords(["is", "unique"])).toBe("isUnique");
@@ -134,6 +134,42 @@ describe("checkIngredients", () => {
     ];
 
     expect(checkIngredients(menu, "dark chocolate")).toBe(true);
+  });
+
+  test("returns true if a menu item includes the ingredient when there are multiple recipes with it in", () => {
+    const menu = [
+      {
+        name: "tofu fritters",
+        ingredients: [
+          "tofu",
+          "egg",
+          "breadbrumbs",
+          "paprika",
+          "flour",
+          "butter",
+        ],
+      },
+      {
+        name: "black bean curry",
+        ingredients: ["black beans", "garam masala", "rice", "butter"],
+      },
+      {
+        name: "chocolate tiffin",
+        ingredients: [
+          "dark chocolate",
+          "egg",
+          "flour",
+          "brown sugar",
+          "vanilla essence",
+        ],
+      },
+      {
+        name: "hummus",
+        ingredients: ["chickpeas", "tahini", "lemon", "garlic", "salt"],
+      },
+    ];
+
+    expect(checkIngredients(menu, "butter")).toBe(true);
   });
 });
 
