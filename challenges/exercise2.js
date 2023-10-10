@@ -5,7 +5,10 @@ export function getSquares(nums) {
 
 export function camelCaseWords(words) {
   if (words === undefined) throw new Error("words is required");
-  // Your code here!
+  return words.reduce(
+    (accumulator, word) =>
+      `${accumulator}${word[0].toUpperCase()}${word.substring(1, word.length)}`
+  );
 }
 
 export function getTotalSubjects(people) {
