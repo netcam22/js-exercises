@@ -164,7 +164,7 @@ describe("hasMPostCode", () => {
     expect(hasMPostCode(person)).toBe(false);
   });
 
-  test("returns false if the postcode starts with MM but is not for Manchester", () => {
+  test("returns false if the postcode starts with MM", () => {
     const person = {
       name: "Jan",
       age: 50,
