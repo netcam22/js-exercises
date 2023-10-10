@@ -122,6 +122,11 @@ describe("countSheep", () => {
     ];
     expect(countSheep(arr)).toBe(5);
   });
+
+  test.only("returns 1 if there is only 1 sheep in the array and no other animals", () => {
+    const arr = ["sheep"];
+    expect(countSheep(arr)).toBe(1);
+  });
 });
 
 describe("hasMPostCode", () => {
