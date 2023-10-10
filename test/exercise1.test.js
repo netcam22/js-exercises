@@ -49,6 +49,14 @@ describe("isFromManchester", () => {
     };
     expect(isFromManchester(person)).toBe(false);
   });
+  test.only("returns true if the person is from Manchester", () => {
+    const person = {
+      name: "Fred",
+      city: "manchester",
+      age: 53,
+    };
+    expect(isFromManchester(person)).toBe(false);
+  });
 });
 
 describe("getBusNumbers", () => {
