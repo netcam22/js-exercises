@@ -184,6 +184,20 @@ describe("duplicateNumbers", () => {
     expect(duplicateNumbers(arr1, arr2)).toEqual([1]);
   });
 
+  test("returns an array of numbers when arr1 and arr2 have equal values, even if not in order", () => {
+    let arr1 = [3, 7, 8];
+    let arr2 = [8, 7, 3];
+    expect(duplicateNumbers(arr1, arr2)).toEqual([3, 7, 8]);
+
+    arr1 = [1, 2, 3];
+    arr2 = [1, 2, 3];
+    expect(duplicateNumbers(arr1, arr2)).toEqual([1, 2, 3]);
+
+    arr1 = [1];
+    arr2 = [1];
+    expect(duplicateNumbers(arr1, arr2)).toEqual([1]);
+  });
+
   test("returns the duplicate numbers in ascending order", () => {
     let arr1 = [1, 55, 4, 3, 7, 8];
     let arr2 = [55, 23, 65, 0, 1];
