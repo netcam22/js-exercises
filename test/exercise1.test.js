@@ -86,6 +86,10 @@ describe("getBusNumbers", () => {
   test("returns the correct number of buses for larger numbers of people", () => {
     expect(getBusNumbers(43728)).toBe(1094);
   });
+
+  test("returns 0 buses for 0 people", () => {
+    expect(getBusNumbers(0)).toBe(0);
+  });
 });
 
 describe("countSheep", () => {
