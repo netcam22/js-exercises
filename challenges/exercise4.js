@@ -10,7 +10,7 @@ export const count1sand0s = (str) => {
   if (str === undefined) throw new Error("str is required");
   return str.split("").reduce(
     (result, num) => {
-      result[parseInt(num)] += 1;
+      result[num] += 1;
       return result;
     },
     { 1: 0, 0: 0 }
