@@ -6,7 +6,7 @@ export const findNextNumber = (nums, n) => {
     : null;
 };
 
-export const count1sand0s = (str) => {
+export const count1sand0s = str => {
   if (str === undefined) throw new Error("str is required");
   return str.split("").reduce(
     (result, num) => {
@@ -17,7 +17,7 @@ export const count1sand0s = (str) => {
   );
 };
 
-export const reverseNumber = (n) => {
+export const reverseNumber = n => {
   if (n === undefined) throw new Error("n is required");
   return parseInt(
     n
@@ -28,14 +28,14 @@ export const reverseNumber = (n) => {
   );
 };
 
-export const sumArrays = (arrs) => {
+export const sumArrays = arrs => {
   if (arrs === undefined) throw new Error("arrs is required");
   let total = 0;
-  arrs.map((subArr) => subArr.map((num) => (total += num)));
+  arrs.map(subArr => subArr.map(num => (total += num)));
   return total;
 };
 
-export const arrShift = (arr) => {
+export const arrShift = arr => {
   if (arr === undefined) throw new Error("arr is required");
   // Your code here!
 };
@@ -46,7 +46,7 @@ export const findNeedle = (haystack, searchTerm) => {
   // Your code here!
 };
 
-export const getWordFrequencies = (str) => {
+export const getWordFrequencies = str => {
   if (str === undefined) throw new Error("str is required");
   // Your code here!
 };
