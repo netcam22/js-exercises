@@ -37,10 +37,7 @@ export const sumArrays = arrs => {
 
 export const arrShift = arr => {
   if (arr === undefined) throw new Error("arr is required");
-  const first = [...arr].at(0);
-  const last = [...arr].at(-1);
-  arr[0] = last;
-  arr[arr.length - 1] = first;
+  [([arr[0], arr[arr.length - 1]] = [arr[arr.length - 1], arr[0]])];
   return arr;
 };
 
