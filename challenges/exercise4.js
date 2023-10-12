@@ -21,15 +21,13 @@ export const count1sand0s = (str) => {
 
 export const reverseNumber = (n) => {
   if (n === undefined) throw new Error("n is required");
-  const reversed = (n) =>
-    parseInt(
-      n
-        .toString()
-        .split("")
-        .map((digit, i, arr) => arr[arr.length - 1 - i])
-        .join("")
-    );
-  return reversed(n);
+  return parseInt(
+    n
+      .toString()
+      .split("")
+      .map((digit, i, arr) => arr[arr.length - 1 - i])
+      .join("")
+  );
 };
 
 export const sumArrays = (arrs) => {
