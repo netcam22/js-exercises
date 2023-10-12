@@ -8,15 +8,13 @@ export const findNextNumber = (nums, n) => {
 
 export const count1sand0s = (str) => {
   if (str === undefined) throw new Error("str is required");
-  return str
-    .split("")
-    .reduce(
-      (result, num) =>
-        parseInt(num) === 1
-          ? { 1: result[1] + 1, 0: result[0] }
-          : { 1: result[1], 0: result[0] + 1 },
-      { 1: 0, 0: 0 }
-    );
+  return str.split("").reduce(
+    (result, num) => {
+      result[parseInt(num)] += 1;
+      return result;
+    },
+    { 1: 0, 0: 0 }
+  );
 };
 
 export const reverseNumber = (n) => {
