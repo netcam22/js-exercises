@@ -153,37 +153,37 @@ describe("getComplementaryDNA", () => {
 });
 
 describe("isItPrime", () => {
-  test.only("Throws an error if not passed n parameter", () => {
+  test("Throws an error if not passed n parameter", () => {
     expect(() => {
       isItPrime();
     }).toThrow("parameter n is required");
   });
 
-  test.only("Throws an error if parameter passed is a string", () => {
+  test("Throws an error if parameter passed is a string", () => {
     expect(() => {
       isItPrime("hello");
     }).toThrow("parameter should be integer of datatype number");
   });
 
-  test.only("Throws an error if parameter passed is a decimal", () => {
+  test("Throws an error if parameter passed is a decimal", () => {
     expect(() => {
       isItPrime(0.75);
     }).toThrow("parameter should be integer of datatype number");
   });
 
-  test.only("Throws an error if parameter passed is negative", () => {
+  test("Throws an error if parameter passed is negative", () => {
     expect(() => {
       isItPrime(-7);
     }).toThrow("parameter should be positive");
   });
 
-  test.only("Throws an error if parameter passed is an array", () => {
+  test("Throws an error if parameter passed is an array", () => {
     expect(() => {
       isItPrime(["hello", "world"]);
     }).toThrow("parameter should be integer of datatype number");
   });
 
-  test.only("Test numbers that are prime", () => {
+  test("Test numbers that are prime", () => {
     expect(isItPrime(2)).toBe(true);
     expect(isItPrime(11)).toBe(true);
     expect(isItPrime(89)).toBe(true);
@@ -193,7 +193,7 @@ describe("isItPrime", () => {
     expect(isItPrime(953)).toBe(true);
   });
 
-  test.only("Test numbers that are not prime", () => {
+  test("Test numbers that are not prime", () => {
     expect(isItPrime(0)).toBe(false);
     expect(isItPrime(1)).toBe(false);
     expect(isItPrime(30)).toBe(false);
@@ -205,20 +205,76 @@ describe("isItPrime", () => {
 });
 
 describe("createMatrix", () => {
-  test("Throws an error if not passed ... parameter", () => {
+  test("Throws an error if not passed any parameters", () => {
     expect(() => {
       createMatrix();
-    }).toThrow("parameter ... is required");
+    }).toThrow("no parameters passed");
+  });
+  test("Throws an error if not passed n parameter", () => {
+    expect(() => {
+      createMatrix("foo");
+    }).toThrow("n is required");
   });
 
-  test("Throws an error if parameter passed is not ......", () => {
+  test("Throws an error if not passed fill parameter", () => {
     expect(() => {
       createMatrix(66);
-    }).toThrow("parameter data type should be ....");
+    }).toThrow("fill is required");
   });
 
-  test("", () => {
-    expect(createMatrix()).toBe();
+  test("Create valid matrix", () => {
+    expect(createMatrix(1, 1)).toStrictEqual([[1]]);
+    expect(createMatrix(2, "x")).toStrictEqual([
+      ["x", "x"],
+      ["x", "x"],
+    ]);
+    expect(createMatrix(3, "yes")).toStrictEqual([
+      ["yes", "yes", "yes"],
+      ["yes", "yes", "yes"],
+      ["yes", "yes", "yes"],
+    ]);
+    expect(createMatrix(4, "no")).toStrictEqual([
+      ["no", "no", "no", "no"],
+      ["no", "no", "no", "no"],
+      ["no", "no", "no", "no"],
+      ["no", "no", "no", "no"],
+    ]);
+  });
+
+  test("Create valid matrix with object and arrays", () => {
+    expect(
+      createMatrix(1, { name: "Annette", city: "Cambridge" })
+    ).toStrictEqual([[{ name: "Annette", city: "Cambridge" }]]);
+    expect(createMatrix(1, [1, 2, 3, 4, 5])).toStrictEqual([[[1, 2, 3, 4, 5]]]);
+    expect(
+      createMatrix(2, { dessert: "cake", type: "chocolate" })
+    ).toStrictEqual([
+      [
+        { dessert: "cake", type: "chocolate" },
+        { dessert: "cake", type: "chocolate" },
+      ],
+      [
+        { dessert: "cake", type: "chocolate" },
+        { dessert: "cake", type: "chocolate" },
+      ],
+    ]);
+    expect(createMatrix(3, ["a", "b", "c"])).toStrictEqual([
+      [
+        ["a", "b", "c"],
+        ["a", "b", "c"],
+        ["a", "b", "c"],
+      ],
+      [
+        ["a", "b", "c"],
+        ["a", "b", "c"],
+        ["a", "b", "c"],
+      ],
+      [
+        ["a", "b", "c"],
+        ["a", "b", "c"],
+        ["a", "b", "c"],
+      ],
+    ]);
   });
 });
 
