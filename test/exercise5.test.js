@@ -59,26 +59,53 @@ describe("sumMultiples", () => {
     expect(sumMultiples([65.555, 4, 0.66, 0.75, 85, 95, 102])).toBe(282);
   });
 
-  test.only("empty array", () => {
+  test("empty array", () => {
     expect(sumMultiples([])).toBe(0);
   });
 });
 
 describe("isValidDNA", () => {
-  test.only("Throws an error if not passed str parameter", () => {
+  test("Throws an error if not passed str parameter", () => {
     expect(() => {
       isValidDNA();
     }).toThrow("parameter str is required");
   });
 
-  test.only("Throws an error if parameter passed is not a string", () => {
+  test("Throws an error if parameter passed is a number", () => {
     expect(() => {
       isValidDNA(66);
     }).toThrow("parameter data type should be String");
   });
 
-  test("", () => {
-    expect(isValidDNA()).toBe();
+  test("Throws an error if parameter passed is an array", () => {
+    expect(() => {
+      isValidDNA(["hello", "world"]);
+    }).toThrow("parameter data type should be String");
+  });
+
+  test("Strings with valid DNA characters C, T, G or A", () => {
+    expect(isValidDNA("CGTA")).toBe(true);
+    expect(isValidDNA("CGTAAAG")).toBe(true);
+    expect(isValidDNA("CGTATGA")).toBe(true);
+    expect(isValidDNA("CGTATTTTTAG")).toBe(true);
+    expect(isValidDNA("A")).toBe(true);
+    expect(isValidDNA("CC")).toBe(true);
+    expect(isValidDNA("TTT")).toBe(true);
+    expect(isValidDNA("GGGG")).toBe(true);
+  });
+
+  test("Strings including invalid characters that are not C, T, G or A", () => {
+    expect(isValidDNA("CGTB")).toBe(false);
+    expect(isValidDNA("CGTAXZ")).toBe(false);
+    expect(isValidDNA("CGOPGA")).toBe(false);
+    expect(isValidDNA("MQAIP")).toBe(false);
+  });
+
+  test("Strings with no matching charaters", () => {
+    expect(isValidDNA("XYZ")).toBe(false);
+    expect(isValidDNA("BCDEF")).toBe(false);
+    expect(isValidDNA("LMNOP")).toBe(false);
+    expect(isValidDNA("")).toBe(false);
   });
 });
 
