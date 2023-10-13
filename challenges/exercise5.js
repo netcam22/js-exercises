@@ -105,8 +105,12 @@ export const createMatrix = (n, fill) => {
  * @returns {Boolean}
  */
 export const areWeCovered = (staff, day) => {
-  if (staff === undefined) throw new Error("staff is required");
-  if (day === undefined) throw new Error("day is required");
+  if (staff === undefined && day === undefined)
+    throw new Error("staff and day are required");
+  if (staff === undefined || !Array.isArray(staff))
+    throw new Error("staff is required");
+  if (day === undefined || typeof day !== "string")
+    throw new Error("day is required");
   const dayTally = staff.reduce((counts, person) => {
     if (person.rota.includes(day)) {
       return counts[day] === undefined

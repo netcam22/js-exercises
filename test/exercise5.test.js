@@ -279,16 +279,22 @@ describe("createMatrix", () => {
 });
 
 describe("areWeCovered", () => {
-  test("Throws an error if not passed staff and day parameters", () => {
+  test.only("Throws an error if not passed staff is not passed as parameter", () => {
     expect(() => {
       areWeCovered();
-    }).toThrow("parameter staff and day are required");
+    }).toThrow("staff and day are required");
   });
 
-  test("Throws an error if parameters passed are not Array and String", () => {
+  test.only("Throws an error if not passed staff is not passed as parameter", () => {
     expect(() => {
-      areWeCovered(66);
-    }).toThrow("parameter data types should be Array and String");
+      areWeCovered("Monday");
+    }).toThrow("staff is required");
+  });
+
+  test.only("Throws an error if day is not passed as parameter", () => {
+    expect(() => {
+      areWeCovered([]);
+    }).toThrow("day is required");
   });
 
   test.only("Not enough staff to cover given day", () => {
