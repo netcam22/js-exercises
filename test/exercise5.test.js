@@ -8,6 +8,24 @@ import {
 } from "../challenges/exercise5";
 
 describe("sumMultiples", () => {
+  test.only("Throws an error if not passed arr parameter", () => {
+    expect(() => {
+      sumMultiples();
+    }).toThrow("parameter arr is required");
+  });
+
+  test.only("Throws an error if parameter passed is not an array", () => {
+    expect(() => {
+      sumMultiples(66);
+    }).toThrow("parameter data type should be array");
+  });
+
+  test.only("Throws an error if parameter passed is not an array", () => {
+    expect(() => {
+      sumMultiples("Hello world");
+    }).toThrow("parameter data type should be array");
+  });
+
   test.only("sums of positive integers that are multiples of either 3 or 5", () => {
     expect(sumMultiples([1, 2, 3, 4, 5, 6, 7, 8, 9])).toBe(23);
     expect(sumMultiples([3, 4, 6, 7, 8, 9, 100])).toBe(118);
@@ -36,8 +54,8 @@ describe("sumMultiples", () => {
   });
 
   test.only("sums of numbers, inlcuding decimals, that are multiples of either 3 or 5", () => {
-    expect(sumMultiples([1, 2, 3, 4.7, 5.5, 6, 7, 8, 9])).toBe(18);
-    expect(sumMultiples([3, 4, 6, 7, 8.8, 9, 100.111])).toBe(18);
+    expect(sumMultiples([1, 2, 3, 4.7, 5.5, 6.0, 7, 8, 9])).toBe(18);
+    expect(sumMultiples([3, 4, 6, 7, 8.8, 9.0, 100.111])).toBe(18);
     expect(sumMultiples([65.555, 4, 0.66, 0.75, 85, 95, 102])).toBe(282);
   });
 });
