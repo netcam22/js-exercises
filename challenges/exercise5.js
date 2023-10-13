@@ -11,7 +11,9 @@
  * @returns {Number}
  */
 export const sumMultiples = arr => {
-  if (arr === undefined) throw new Error("arr is required");
+  if (arr === undefined) throw new Error("parameter arr is required");
+  if (!Array.isArray(arr))
+    throw new Error("parameter data type should be array");
   return arr.reduce(
     (sum, num) => (num % 3 === 0 || num % 5 === 0 ? (sum += num) : sum),
     0
