@@ -26,7 +26,10 @@ export const sumMultiples = arr => {
  * @returns {Boolean}
  */
 export const isValidDNA = str => {
-  if (str === undefined) throw new Error("str is required");
+  if (str === undefined) throw new Error("parameter str is required");
+  if (typeof str !== "string")
+    throw new Error("parameter data type should be String");
+  return /^[ACTG]+$/g.test(str);
 };
 
 /**
