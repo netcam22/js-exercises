@@ -39,6 +39,8 @@ export const isValidDNA = str => {
  */
 export const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("parameter str is required");
+  if (typeof str !== "string")
+    throw new Error("parameter data type should be String");
   if (!/^[ACTG]+$/g.test(str)) throw new Error("invalid DNA string");
   const pairs = { A: "T", T: "A", C: "G", G: "C" };
   return str
