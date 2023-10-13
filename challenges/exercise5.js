@@ -80,8 +80,16 @@ export const isItPrime = n => {
  * @returns {Array}
  */
 export const createMatrix = (n, fill) => {
-  if (n === undefined) throw new Error("n is required");
+  if (n === undefined && fill === undefined)
+    throw new Error("no parameters passed");
+  if (n === undefined || !Number.isInteger(n))
+    throw new Error("n is required of integer data type number");
   if (fill === undefined) throw new Error("fill is required");
+  const arr = new Array(n);
+  for (let i = 0; i < n; i++) {
+    arr[i] = new Array(n).fill(fill);
+  }
+  return arr;
 };
 
 /**
