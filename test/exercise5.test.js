@@ -291,7 +291,63 @@ describe("areWeCovered", () => {
     }).toThrow("parameter data types should be Array and String");
   });
 
-  test("", () => {
-    expect(areWeCovered()).toBe();
+  test.only("Not enough staff to cover given day", () => {
+    expect(
+      areWeCovered(
+        [
+          { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
+          {
+            name: "Pedro",
+            rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"],
+          },
+        ],
+        "Monday"
+      )
+    ).toBe(false);
+
+    expect(
+      areWeCovered(
+        [
+          { name: "John", rota: ["Monday", "Saturday", "Friday"] },
+          { name: "June", rota: ["Monday", "Saturday", "Friday"] },
+          {
+            name: "Jane",
+            rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"],
+          },
+        ],
+        "Monday"
+      )
+    ).toBe(false);
+  });
+
+  test.only("Enough staff to cover given day", () => {
+    expect(
+      areWeCovered(
+        [
+          { name: "Sally", rota: ["Monday", "Tuesday", "Friday"] },
+          { name: "Sarah", rota: ["Monday", "Tuesday", "Friday"] },
+          {
+            name: "Pedro",
+            rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"],
+          },
+        ],
+        "Tuesday"
+      )
+    ).toBe(true);
+
+    expect(
+      areWeCovered(
+        [
+          { name: "John", rota: ["Monday", "Wednesday", "Friday"] },
+          { name: "June", rota: ["Monday", "Wednesday", "Friday"] },
+          { name: "Jill", rota: ["Tuesday", "Wednesday", "Saturday"] },
+          {
+            name: "Jane",
+            rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"],
+          },
+        ],
+        "Wednesday"
+      )
+    ).toBe(true);
   });
 });
