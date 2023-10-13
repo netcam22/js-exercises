@@ -110,37 +110,37 @@ describe("isValidDNA", () => {
 });
 
 describe("getComplementaryDNA", () => {
-  test.only("Throws an error if not passed str parameter", () => {
+  test("Throws an error if not passed str parameter", () => {
     expect(() => {
       getComplementaryDNA();
     }).toThrow("parameter str is required");
   });
 
-  test.only("Throws an error if parameter passed is a number", () => {
+  test("Throws an error if parameter passed is a number", () => {
     expect(() => {
       getComplementaryDNA(66);
-    }).toThrow("invalid DNA string");
+    }).toThrow("parameter data type should be String");
   });
 
-  test.only("Throws an error if parameter passed is an array", () => {
+  test("Throws an error if parameter passed is an array", () => {
     expect(() => {
       getComplementaryDNA(["hello", "world"]);
-    }).toThrow("invalid DNA string");
+    }).toThrow("parameter data type should be String");
   });
 
-  test.only("Throws an error if invalid DNA string", () => {
+  test("Throws an error if invalid DNA string", () => {
     expect(() => {
       getComplementaryDNA("CGOPGA");
     }).toThrow("invalid DNA string");
   });
 
-  test.only("Throws an error if empty string", () => {
+  test("Throws an error if empty string", () => {
     expect(() => {
       getComplementaryDNA("");
     }).toThrow("invalid DNA string");
   });
 
-  test.only("Strings with valid DNA characters C, T, G or A", () => {
+  test("Strings with valid DNA characters C, T, G or A", () => {
     expect(getComplementaryDNA("CGTA")).toBe("GCAT");
     expect(getComplementaryDNA("CGTAAAG")).toBe("GCATTTC");
     expect(getComplementaryDNA("CGTATGA")).toBe("GCATACT");
@@ -159,10 +159,16 @@ describe("isItPrime", () => {
     }).toThrow("parameter n is required");
   });
 
-  test("Throws an error if parameter passed is not a number", () => {
+  test("Throws an error if parameter passed is a string", () => {
     expect(() => {
       isItPrime("hello");
-    }).toThrow("parameter data type should be a number");
+    }).toThrow("parameter data type should be an integer");
+  });
+
+  test("Throws an error if parameter passed is an array", () => {
+    expect(() => {
+      isItPrime(["hello", "world"]);
+    }).toThrow("parameter data type should be an integer");
   });
 
   test("", () => {
