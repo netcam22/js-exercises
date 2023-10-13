@@ -55,7 +55,17 @@ export const getComplementaryDNA = str => {
  * @returns {Boolean}
  */
 export const isItPrime = n => {
-  if (n === undefined) throw new Error("n is required");
+  if (n === undefined) throw new Error("parameter n is required");
+  if (n < 0) throw new Error("parameter should be positive");
+  if (!Number.isInteger(n))
+    throw new Error("parameter should be integer of datatype number");
+  if (n <= 1) return false;
+  for (let k = 2; k <= Math.sqrt(n); k++) {
+    if (n % k === 0) {
+      return false;
+    }
+  }
+  return true;
 };
 
 /**
