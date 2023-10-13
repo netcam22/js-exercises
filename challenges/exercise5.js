@@ -40,26 +40,11 @@ export const isValidDNA = str => {
 export const getComplementaryDNA = str => {
   if (str === undefined) throw new Error("parameter str is required");
   if (!/^[ACTG]+$/g.test(str)) throw new Error("invalid DNA string");
-  let dna = "";
-  for (let i in str) {
-    switch (str[i]) {
-      case "A":
-        dna += "T";
-        break;
-      case "T":
-        dna += "A";
-        break;
-      case "C":
-        dna += "G";
-        break;
-      case "G":
-        dna += "C";
-        break;
-      default:
-        break;
-    }
-  }
-  return dna;
+  const pairs = { A: "T", T: "A", C: "G", G: "C" };
+  return str
+    .split("")
+    .map(char => pairs[char], pairs)
+    .join("");
 };
 
 /**
