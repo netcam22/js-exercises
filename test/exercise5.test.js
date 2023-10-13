@@ -153,26 +153,54 @@ describe("getComplementaryDNA", () => {
 });
 
 describe("isItPrime", () => {
-  test("Throws an error if not passed n parameter", () => {
+  test.only("Throws an error if not passed n parameter", () => {
     expect(() => {
       isItPrime();
     }).toThrow("parameter n is required");
   });
 
-  test("Throws an error if parameter passed is a string", () => {
+  test.only("Throws an error if parameter passed is a string", () => {
     expect(() => {
       isItPrime("hello");
-    }).toThrow("parameter data type should be an integer");
+    }).toThrow("parameter should be integer of datatype number");
   });
 
-  test("Throws an error if parameter passed is an array", () => {
+  test.only("Throws an error if parameter passed is a decimal", () => {
+    expect(() => {
+      isItPrime(0.75);
+    }).toThrow("parameter should be integer of datatype number");
+  });
+
+  test.only("Throws an error if parameter passed is negative", () => {
+    expect(() => {
+      isItPrime(-7);
+    }).toThrow("parameter should be positive");
+  });
+
+  test.only("Throws an error if parameter passed is an array", () => {
     expect(() => {
       isItPrime(["hello", "world"]);
-    }).toThrow("parameter data type should be an integer");
+    }).toThrow("parameter should be integer of datatype number");
   });
 
-  test("", () => {
-    expect(isItPrime()).toBe();
+  test.only("Test numbers that are prime", () => {
+    expect(isItPrime(2)).toBe(true);
+    expect(isItPrime(11)).toBe(true);
+    expect(isItPrime(89)).toBe(true);
+    expect(isItPrime(163)).toBe(true);
+    expect(isItPrime(439)).toBe(true);
+    expect(isItPrime(757)).toBe(true);
+    expect(isItPrime(953)).toBe(true);
+  });
+
+  test.only("Test numbers that are not prime", () => {
+    expect(isItPrime(0)).toBe(false);
+    expect(isItPrime(1)).toBe(false);
+    expect(isItPrime(30)).toBe(false);
+    expect(isItPrime(99)).toBe(false);
+    expect(isItPrime(145)).toBe(false);
+    expect(isItPrime(649)).toBe(false);
+    expect(isItPrime(955)).toBe(false);
   });
 });
 
