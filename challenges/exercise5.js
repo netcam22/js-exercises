@@ -13,7 +13,7 @@
 export const sumMultiples = arr => {
   if (arr === undefined) throw new Error("parameter arr is required");
   if (!Array.isArray(arr))
-    throw new Error("parameter data type should be array");
+    throw new Error("parameter data type should be Array");
   return arr.reduce(
     (sum, num) => (num % 3 === 0 || num % 5 === 0 ? (sum += num) : sum),
     0
@@ -38,7 +38,28 @@ export const isValidDNA = str => {
  * @returns {String}
  */
 export const getComplementaryDNA = str => {
-  if (str === undefined) throw new Error("str is required");
+  if (str === undefined) throw new Error("parameter str is required");
+  if (!/^[ACTG]+$/g.test(str)) throw new Error("invalid DNA string");
+  let dna = "";
+  for (let i in str) {
+    switch (str[i]) {
+      case "A":
+        dna += "T";
+        break;
+      case "T":
+        dna += "A";
+        break;
+      case "C":
+        dna += "G";
+        break;
+      case "G":
+        dna += "C";
+        break;
+      default:
+        break;
+    }
+  }
+  return dna;
 };
 
 /**
