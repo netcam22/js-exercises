@@ -17,13 +17,13 @@ describe("sumMultiples", () => {
   test("Throws an error if parameter passed is not an array", () => {
     expect(() => {
       sumMultiples(66);
-    }).toThrow("parameter data type should be array");
+    }).toThrow("parameter data type should be Array");
   });
 
   test("Throws an error if parameter passed is not an array", () => {
     expect(() => {
       sumMultiples("Hello world");
-    }).toThrow("parameter data type should be array");
+    }).toThrow("parameter data type should be Array");
   });
 
   test("sums of positive integers that are multiples of either 3 or 5", () => {
@@ -110,20 +110,45 @@ describe("isValidDNA", () => {
 });
 
 describe("getComplementaryDNA", () => {
-  test("Throws an error if not passed str parameter", () => {
+  test.only("Throws an error if not passed str parameter", () => {
     expect(() => {
       getComplementaryDNA();
     }).toThrow("parameter str is required");
   });
 
-  test("Throws an error if parameter passed is not a string", () => {
+  test.only("Throws an error if parameter passed is a number", () => {
     expect(() => {
       getComplementaryDNA(66);
-    }).toThrow("parameter data type should be a string.");
+    }).toThrow("invalid DNA string");
   });
 
-  test("", () => {
-    expect(getComplementaryDNA()).toBe();
+  test.only("Throws an error if parameter passed is an array", () => {
+    expect(() => {
+      getComplementaryDNA(["hello", "world"]);
+    }).toThrow("invalid DNA string");
+  });
+
+  test.only("Throws an error if invalid DNA string", () => {
+    expect(() => {
+      getComplementaryDNA("CGOPGA");
+    }).toThrow("invalid DNA string");
+  });
+
+  test.only("Throws an error if empty string", () => {
+    expect(() => {
+      getComplementaryDNA("");
+    }).toThrow("invalid DNA string");
+  });
+
+  test.only("Strings with valid DNA characters C, T, G or A", () => {
+    expect(getComplementaryDNA("CGTA")).toBe("GCAT");
+    expect(getComplementaryDNA("CGTAAAG")).toBe("GCATTTC");
+    expect(getComplementaryDNA("CGTATGA")).toBe("GCATACT");
+    expect(getComplementaryDNA("CGTATTTTTAG")).toBe("GCATAAAAATC");
+    expect(getComplementaryDNA("A")).toBe("T");
+    expect(getComplementaryDNA("CC")).toBe("GG");
+    expect(getComplementaryDNA("TTT")).toBe("AAA");
+    expect(getComplementaryDNA("GGGG")).toBe("CCCC");
   });
 });
 
