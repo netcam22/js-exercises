@@ -63,7 +63,7 @@ export const getWordFrequencies = str => {
   if (str === undefined) throw new Error("str is required");
   const counts = {},
     arr = str.split(" ");
-  for (let i = 0; i < arr.length; i++) {
+  for (let i in arr) {
     const remove = /[^a-z]+/gi;
     const word = arr[i].replace(remove, "").toLowerCase();
     if (counts[word] === undefined) {
