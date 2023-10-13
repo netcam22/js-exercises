@@ -12,13 +12,10 @@
  */
 export const sumMultiples = arr => {
   if (arr === undefined) throw new Error("arr is required");
-  let sum = 0;
-  for (const num of arr) {
-    if (num % 3 === 0 || num % 5 === 0) {
-      sum += num;
-    }
-  }
-  return sum;
+  return arr.reduce(
+    (sum, num) => (num % 3 === 0 || num % 5 === 0 ? (sum += num) : sum),
+    0
+  );
 };
 
 /**
