@@ -356,4 +356,75 @@ describe("areWeCovered", () => {
       )
     ).toBe(true);
   });
+
+  test("Day not specified", () => {
+    expect(
+      areWeCovered(
+        [
+          { name: "Sally", rota: [] },
+          { name: "Sarah", rota: [] },
+          {
+            name: "Pedro",
+            rota: [],
+          },
+        ],
+        "Tuesday"
+      )
+    ).toBe(false);
+
+    expect(
+      areWeCovered(
+        [
+          { name: "John", rota: ["Monday", "Wednesday", "Friday"] },
+          { name: "June", rota: ["Monday", "Wednesday", "Friday"] },
+          { name: "Jill", rota: ["Tuesday", "Wednesday", "Saturday"] },
+          {
+            name: "Jane",
+            rota: ["Saturday", "Sunday", "Tuesday", "Wednesday"],
+          },
+        ],
+        ""
+      )
+    ).toBe(false);
+  });
+
+  test("Days repeated for individual staff members", () => {
+    expect(
+      areWeCovered(
+        [
+          { name: "Sally", rota: ["Monday", "Monday", "Monday"] },
+          { name: "Sarah", rota: ["Tuesday", "Wednesday", "Friday"] },
+          {
+            name: "Pedro",
+            rota: ["Saturday", "Sunday", "Monday", "Wednesday"],
+          },
+        ],
+        "Monday"
+      )
+    ).toBe(false);
+
+    expect(
+      areWeCovered(
+        [
+          { name: "Sally", rota: ["Monday", "Monday", "Monday"] },
+          { name: "Sarah", rota: ["Monday", "Monday", "Monday"] },
+          {
+            name: "Pedro",
+            rota: ["Monday", "Monday", "Monday", "Monday"],
+          },
+        ],
+        "Monday"
+      )
+    ).toBe(true);
+
+    expect(
+      areWeCovered(
+        [
+          { name: "Sally", rota: ["Monday", "Monday", "Monday"] },
+          { name: "Sarah", rota: ["Monday", "Monday", "Monday"] },
+        ],
+        "Monday"
+      )
+    ).toBe(false);
+  });
 });
