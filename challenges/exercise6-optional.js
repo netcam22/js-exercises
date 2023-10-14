@@ -9,6 +9,8 @@
  */
 export const sumDigits = n => {
   if (n === undefined) throw new Error("n is required");
+  if (!Number.isInteger(n))
+    throw new Error("n should be integer of datatype number");
   return n
     .toString()
     .replace(/-{1}/, "")
