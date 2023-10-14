@@ -27,12 +27,12 @@ export const sumDigits = n => {
  * @param {Number} step
  */
 export const createRange = (start, end, step) => {
-  if (start === undefined) throw new Error("start is required");
+  if (start === undefined && end === undefined)
+    throw new Error("start and end are required");
   if (end === undefined) throw new Error("end is required");
-  if (step === undefined)
-    console.log(
-      "FYI: Optional step parameter not provided. Remove this check once you've handled the optional step!"
-    );
+  if (step === undefined) step = 1;
+  const arrLen = (end - start) / step + 1;
+  return Array.from({ length: arrLen }, (item, i) => i * step + start);
 };
 
 /**
@@ -65,8 +65,29 @@ export const createRange = (start, end, step) => {
  * @param {Array} users
  */
 export const getScreentimeAlertList = (users, date) => {
-  if (users === undefined) throw new Error("users is required");
-  if (date === undefined) throw new Error("date is required");
+  if (users === undefined || !Array.isArray(users))
+    throw new Error("array of users is required");
+  if (date === undefined || typeof date !== "string")
+    throw new Error("date is required");
+  const data = users
+    .map(user => {
+      const usageObj = user.screenTime.find(
+        screenUse => screenUse.date === date
+      );
+      let count = 0;
+      if (usageObj !== undefined) {
+        count = Object.keys(usageObj.usage).reduce(
+          (accumulator, key) => accumulator + usageObj.usage[key],
+          0
+        );
+      }
+      if (count > 100) {
+        return user.username;
+      }
+    })
+    .filter(foundUser => foundUser !== undefined);
+  console.log(data);
+  return data;
 };
 
 /**
