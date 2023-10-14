@@ -7,33 +7,33 @@ import {
 } from "../challenges/exercise6-optional";
 
 describe("sumDigits", () => {
-  test.only("Throws an error if not passed n parameter", () => {
+  test("Throws an error if not passed n parameter", () => {
     expect(() => {
       sumDigits();
     }).toThrow("n is required");
   });
 
-  test.only("sums of digits", () => {
+  test("sums of digits", () => {
     expect(sumDigits(123456789)).toBe(45);
     expect(sumDigits(346789100)).toBe(38);
     expect(sumDigits(65466)).toBe(27);
   });
 
-  test.only("sums with negative numbers", () => {
+  test("sums of digits from negative numbers", () => {
     expect(sumDigits(-123456789)).toBe(45);
     expect(sumDigits(-346789100)).toBe(38);
     expect(sumDigits(-65466)).toBe(27);
   });
 
-  test.only("test for zero", () => {
+  test("test for zero", () => {
     expect(sumDigits(0)).toBe(0);
   });
 
-  test.only("test for single digit", () => {
+  test("test for single digit", () => {
     expect(sumDigits(5)).toBe(5);
   });
 });
-
+/*
 describe("createRange", () => {
   test("Throws an error if not passed str parameter", () => {
     expect(() => {
@@ -247,3 +247,4 @@ describe("findWinner", () => {
     ]);
   });
 });
+*/
