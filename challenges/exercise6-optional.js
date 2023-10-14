@@ -86,7 +86,6 @@ export const getScreentimeAlertList = (users, date) => {
       }
     })
     .filter(foundUser => foundUser !== undefined);
-  console.log(data);
   return data;
 };
 
