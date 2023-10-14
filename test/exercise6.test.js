@@ -2,8 +2,6 @@ import {
   sumDigits,
   createRange,
   getScreentimeAlertList,
-  hexToRGB,
-  findWinner,
 } from "../challenges/exercise6-optional";
 
 describe("sumDigits", () => {
@@ -45,218 +43,123 @@ describe("sumDigits", () => {
     expect(sumDigits(5)).toBe(5);
   });
 });
-/*
+
 describe("createRange", () => {
-  test("Throws an error if not passed str parameter", () => {
+  test("Throws an error if not passed any parameters", () => {
     expect(() => {
       createRange();
-    }).toThrow("parameter str is required");
+    }).toThrow("start and end are required");
   });
 
-  test("Throws an error if parameter passed is a number", () => {
+  test("End is required", () => {
     expect(() => {
-      createRange(66);
-    }).toThrow("parameter data type should be String");
+      createRange(1);
+    }).toThrow("end is required");
   });
 
-  test("Throws an error if parameter passed is an array", () => {
-    expect(() => {
-      createRange(["hello", "world"]);
-    }).toThrow("parameter data type should be String");
+  test("Range without step parameter", () => {
+    expect(createRange(3, 11)).toStrictEqual([3, 4, 5, 6, 7, 8, 9, 10, 11]);
   });
 
-  test("Strings with valid DNA characters C, T, G or A", () => {
-    expect(createRange("CGTA")).toBe(true);
-    expect(createRange("CGTAAAG")).toBe(true);
-    expect(createRange("CGTATGA")).toBe(true);
-    expect(createRange("CGTATTTTTAG")).toBe(true);
-    expect(createRange("A")).toBe(true);
-    expect(createRange("CC")).toBe(true);
-    expect(createRange("TTT")).toBe(true);
-    expect(createRange("GGGG")).toBe(true);
+  test("Range with positive numbers", () => {
+    expect(createRange(3, 11, 2)).toStrictEqual([3, 5, 7, 9, 11]);
   });
 
-  test("Strings including invalid characters that are not C, T, G or A", () => {
-    expect(createRange("CGTB")).toBe(false);
-    expect(createRange("CGTAXZ")).toBe(false);
-    expect(createRange("CGOPGA")).toBe(false);
-    expect(createRange("MQAIP")).toBe(false);
+  test("Range with negative numbers", () => {
+    expect(createRange(-5, -20, -3)).toStrictEqual([
+      -5, -8, -11, -14, -17, -20,
+    ]);
   });
 
-  test("Strings with no matching charaters", () => {
-    expect(createRange("XYZ")).toBe(false);
-    expect(createRange("BCDEF")).toBe(false);
-    expect(createRange("LMNOP")).toBe(false);
-    expect(createRange("")).toBe(false);
+  test("Range starting with 0", () => {
+    expect(createRange(0, 100, 10)).toStrictEqual([
+      0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+    ]);
   });
 });
 
 describe("getScreentimeAlertList", () => {
-  test("Throws an error if not passed str parameter", () => {
+  test("Throws an error if parameter users not passed", () => {
     expect(() => {
-      getScreentimeAlertList();
-    }).toThrow("parameter str is required");
+      getScreentimeAlertList("2019-05-04");
+    }).toThrow("array of users is required");
   });
 
-  test("Throws an error if parameter passed is a number", () => {
+  test("Throws an error if parameter date not passed", () => {
     expect(() => {
-      getScreentimeAlertList(66);
-    }).toThrow("parameter data type should be String");
+      getScreentimeAlertList([]);
+    }).toThrow("date is required");
   });
 
-  test("Throws an error if parameter passed is an array", () => {
-    expect(() => {
-      getScreentimeAlertList(["hello", "world"]);
-    }).toThrow("parameter data type should be String");
-  });
-
-  test("Throws an error if invalid DNA string", () => {
-    expect(() => {
-      getScreentimeAlertList("CGOPGA");
-    }).toThrow("invalid DNA string");
-  });
-
-  test("Throws an error if empty string", () => {
-    expect(() => {
-      getScreentimeAlertList("");
-    }).toThrow("invalid DNA string");
-  });
-
-  test("Strings with valid DNA characters C, T, G or A", () => {
-    expect(getScreentimeAlertList("CGTA")).toBe("GCAT");
-    expect(getScreentimeAlertList("CGTAAAG")).toBe("GCATTTC");
-    expect(getScreentimeAlertList("CGTATGA")).toBe("GCATACT");
-    expect(getScreentimeAlertList("CGTATTTTTAG")).toBe("GCATAAAAATC");
-    expect(getScreentimeAlertList("A")).toBe("T");
-    expect(getScreentimeAlertList("CC")).toBe("GG");
-    expect(getScreentimeAlertList("TTT")).toBe("AAA");
-    expect(getScreentimeAlertList("GGGG")).toBe("CCCC");
-  });
-});
-
-describe("hexToRGB", () => {
-  test("Throws an error if not passed n parameter", () => {
-    expect(() => {
-      hexToRGB();
-    }).toThrow("parameter n is required");
-  });
-
-  test("Throws an error if parameter passed is a string", () => {
-    expect(() => {
-      hexToRGB("hello");
-    }).toThrow("parameter should be integer of datatype number");
-  });
-
-  test("Throws an error if parameter passed is a decimal", () => {
-    expect(() => {
-      hexToRGB(0.75);
-    }).toThrow("parameter should be integer of datatype number");
-  });
-
-  test("Throws an error if parameter passed is negative", () => {
-    expect(() => {
-      hexToRGB(-7);
-    }).toThrow("parameter should be positive");
-  });
-
-  test("Throws an error if parameter passed is an array", () => {
-    expect(() => {
-      hexToRGB(["hello", "world"]);
-    }).toThrow("parameter should be integer of datatype number");
-  });
-
-  test("Test numbers that are prime", () => {
-    expect(hexToRGB(2)).toBe(true);
-    expect(hexToRGB(11)).toBe(true);
-    expect(hexToRGB(89)).toBe(true);
-    expect(hexToRGB(163)).toBe(true);
-    expect(hexToRGB(439)).toBe(true);
-    expect(hexToRGB(757)).toBe(true);
-    expect(hexToRGB(953)).toBe(true);
-  });
-
-  test("Test numbers that are not prime", () => {
-    expect(hexToRGB(0)).toBe(false);
-    expect(hexToRGB(1)).toBe(false);
-    expect(hexToRGB(30)).toBe(false);
-    expect(hexToRGB(99)).toBe(false);
-    expect(hexToRGB(145)).toBe(false);
-    expect(hexToRGB(649)).toBe(false);
-    expect(hexToRGB(955)).toBe(false);
-  });
-});
-
-describe("findWinner", () => {
-  test("Throws an error if not passed any parameters", () => {
-    expect(() => {
-      findWinner();
-    }).toThrow("no parameters passed");
-  });
-  test("Throws an error if not passed n parameter", () => {
-    expect(() => {
-      findWinner("foo");
-    }).toThrow("n is required");
-  });
-
-  test("Throws an error if not passed fill parameter", () => {
-    expect(() => {
-      findWinner(66);
-    }).toThrow("fill is required");
-  });
-
-  test("Create valid matrix", () => {
-    expect(findWinner(1, 1)).toStrictEqual([[1]]);
-    expect(findWinner(2, "x")).toStrictEqual([
-      ["x", "x"],
-      ["x", "x"],
-    ]);
-    expect(findWinner(3, "yes")).toStrictEqual([
-      ["yes", "yes", "yes"],
-      ["yes", "yes", "yes"],
-      ["yes", "yes", "yes"],
-    ]);
-    expect(findWinner(4, "no")).toStrictEqual([
-      ["no", "no", "no", "no"],
-      ["no", "no", "no", "no"],
-      ["no", "no", "no", "no"],
-      ["no", "no", "no", "no"],
-    ]);
-  });
-
-  test("Create valid matrix with object and arrays", () => {
-    expect(findWinner(1, { name: "Annette", city: "Cambridge" })).toStrictEqual(
-      [[{ name: "Annette", city: "Cambridge" }]]
-    );
-    expect(findWinner(1, [1, 2, 3, 4, 5])).toStrictEqual([[[1, 2, 3, 4, 5]]]);
-    expect(findWinner(2, { dessert: "cake", type: "chocolate" })).toStrictEqual(
-      [
+  test("valid dates and data", () => {
+    expect(
+      getScreentimeAlertList(
         [
-          { dessert: "cake", type: "chocolate" },
-          { dessert: "cake", type: "chocolate" },
+          {
+            username: "beth_1234",
+            name: "Beth Smith",
+            screenTime: [
+              {
+                date: "2019-05-01",
+                usage: { twitter: 34, instagram: 22, facebook: 40 },
+              },
+              {
+                date: "2019-05-02",
+                usage: { twitter: 56, instagram: 40, facebook: 31 },
+              },
+              {
+                date: "2019-05-03",
+                usage: { twitter: 12, instagram: 15, facebook: 19 },
+              },
+              {
+                date: "2019-05-04",
+                usage: { twitter: 10, instagram: 56, facebook: 61 },
+              },
+            ],
+          },
+          {
+            username: "jane_1234",
+            name: "Jane Smith",
+            screenTime: [
+              {
+                date: "2019-05-01",
+                usage: { twitter: 34, instagram: 22, facebook: 40 },
+              },
+              {
+                date: "2019-05-02",
+                usage: { twitter: 56, instagram: 40, facebook: 31 },
+              },
+              {
+                date: "2019-05-03",
+                usage: { twitter: 12, instagram: 15, facebook: 19 },
+              },
+              {
+                date: "2019-05-04",
+                usage: { twitter: 10, instagram: 56, facebook: 61 },
+              },
+            ],
+          },
+          {
+            username: "sam_j_1989",
+            name: "Sam Jones",
+            screenTime: [
+              {
+                date: "2019-06-11",
+                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10 },
+              },
+              {
+                date: "2019-06-13",
+                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16 },
+              },
+              {
+                date: "2019-06-14",
+                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31 },
+              },
+            ],
+          },
         ],
-        [
-          { dessert: "cake", type: "chocolate" },
-          { dessert: "cake", type: "chocolate" },
-        ],
-      ]
-    );
-    expect(findWinner(3, ["a", "b", "c"])).toStrictEqual([
-      [
-        ["a", "b", "c"],
-        ["a", "b", "c"],
-        ["a", "b", "c"],
-      ],
-      [
-        ["a", "b", "c"],
-        ["a", "b", "c"],
-        ["a", "b", "c"],
-      ],
-      [
-        ["a", "b", "c"],
-        ["a", "b", "c"],
-        ["a", "b", "c"],
-      ],
-    ]);
+        "2019-05-04"
+      )
+    ).toStrictEqual(["beth_1234", "jane_1234"]);
   });
 });
-*/
