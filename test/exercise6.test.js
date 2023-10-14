@@ -13,6 +13,18 @@ describe("sumDigits", () => {
     }).toThrow("n is required");
   });
 
+  test("Throws an error if n is a string", () => {
+    expect(() => {
+      sumDigits("Hello");
+    }).toThrow("n should be integer of datatype number");
+  });
+
+  test("Throws an error if n is an array", () => {
+    expect(() => {
+      sumDigits(["1", "2"]);
+    }).toThrow("n should be integer of datatype number");
+  });
+
   test("sums of digits", () => {
     expect(sumDigits(123456789)).toBe(45);
     expect(sumDigits(346789100)).toBe(38);
