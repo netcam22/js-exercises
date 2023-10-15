@@ -3,6 +3,7 @@ import {
   createRange,
   getScreentimeAlertList,
   hexToRGB,
+  findWinner,
 } from "../challenges/exercise6-optional";
 
 describe("sumDigits", () => {
@@ -193,4 +194,112 @@ describe("hexToRGB", () => {
     expect(hexToRGB("#581845")).toBe("rgb(88,24,69)");
     expect(hexToRGB("#000000")).toBe("rgb(0,0,0)");
   });
+});
+
+describe("findWinner", () => {
+  test("Throws an error if not passed board parameter", () => {
+    expect(() => {
+      findWinner();
+    }).toThrow("board is required");
+  });
+
+  test("valid arrays of noughts and crosses with vertical or horizontal wins", () => {
+    expect(
+      findWinner([
+        ["X", "0", null],
+        ["X", null, "0"],
+        ["X", null, "0"],
+      ])
+    ).toBe("X");
+    expect(
+      findWinner([
+        ["X", "0", "0"],
+        ["0", null, "0"],
+        ["X", null, "0"],
+      ])
+    ).toBe("0");
+    expect(
+      findWinner([
+        ["X", null, "0"],
+        ["X", "0", null],
+        ["X", null, "0"],
+      ])
+    ).toBe("X");
+    expect(
+      findWinner([
+        ["0", "X", "X"],
+        ["0", "0", "0"],
+        ["X", null, "X"],
+      ])
+    ).toBe("0");
+    expect(
+      findWinner([
+        ["0", "X", "X"],
+        ["X", null, "X"],
+        ["0", "0", "0"],
+      ])
+    ).toBe("0");
+    expect(
+      findWinner([
+        ["0", "0", "0"],
+        ["0", "X", "X"],
+        ["X", null, "X"],
+      ])
+    ).toBe("0");
+  });
+
+  test("valid arrays of noughts and crosses with diagonal wins", () => {
+    expect(
+      findWinner([
+        ["0", "X", "X"],
+        ["0", "0", "X"],
+        ["X", null, "0"],
+      ])
+    ).toBe("0");
+    expect(
+      findWinner([
+        ["0", "0", "X"],
+        ["0", "X", "X"],
+        ["X", null, "0"],
+      ])
+    ).toBe("X");
+    expect(
+      findWinner([
+        ["0", "0", "X"],
+        ["0", "X", "0"],
+        ["X", "0", "X"],
+      ])
+    ).toBe("X");
+    expect(
+      findWinner([
+        ["X", "0", "X"],
+        ["0", "X", "0"],
+        ["0", "0", "X"],
+      ])
+    ).toBe("X");
+  });
+});
+
+test("no winner", () => {
+  expect(
+    findWinner([
+      ["0", null, "X"],
+      [null, null, "X"],
+      ["X", null, "0"],
+    ])
+  ).toBe(null);
+  expect(
+    findWinner([
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ])
+  ).toBe(null);
+  expect(
+    findWinner([
+      ["0", "X", "0"],
+      ["0", "X", "0"],
+      ["X", "0", "X"],
+    ])
+  ).toBe(null);
 });
