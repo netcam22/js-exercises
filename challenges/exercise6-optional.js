@@ -124,4 +124,78 @@ export const hexToRGB = hexStr => {
  */
 export const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
+  /* function getResults based on concept of grid of strings based on x,y co-ordinates, starting with 00
+  in top left, mapping matching "X"s and "O"s with positions in a grid and returning an object with 
+  arrays of matches to this grid:
+  03 13 23
+  04 14 24
+  05 15 25*/
+  function getResults(board) {
+    const XArray = [],
+      OArray = [];
+    const results = { X: XArray, 0: OArray };
+    for (let y = 0; y < 3; y++) {
+      for (let x = 0; x < 3; x++) {
+        const square = board[y][x];
+        if (square !== null) {
+          let str = `${x}${y + 3}`;
+          results[square].push(str);
+        }
+      }
+    }
+    console.log(results);
+    return results;
+  }
+
+  function hasRow(result) {
+    let count = Object.keys(result).find(key => result[key] === 3);
+    console.log(result[count]);
+    if (result[count] === 3) {
+      return true;
+    }
+    return false;
+  }
+  /* function hasWon counts first and last characters in each co-ordinate string and counts
+  number of occurances of those characters, based on the concept that three
+  strings starting or ending with 3 of either 0, 1, 2, 3 or 5 will be a row of 3*/
+  function hasWon(player, results) {
+    // special cases for diagonals
+    const result = results[player].reduce(
+      (counter, numStr) => {
+        return {
+          ...counter,
+          [numStr[0]]: (counter[numStr[0]] += 1),
+          [numStr[1]]: (counter[numStr[1]] += 1),
+        };
+      },
+      {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0,
+        4: 0,
+        5: 0,
+      }
+    );
+    console.log(result);
+    return hasRow(result);
+  }
+
+  //special cases for diagonals
+  function findDiagonal(player, results) {
+    const diagonal1 = ["03", "14", "25"];
+    const diagonal2 = ["23", "14", "05"];
+    return (
+      diagonal1.every(i => results[player].includes(i)) ||
+      diagonal2.every(i => results[player].includes(i))
+    );
+  }
+
+  const results = getResults(board);
+  if (findDiagonal("X", results) || hasWon("X", results)) {
+    return "X";
+  } else if (findDiagonal("0", results) || hasWon("0", results)) {
+    return "0";
+  }
+  return null;
 };
