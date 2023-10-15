@@ -120,78 +120,67 @@ export const hexToRGB = hexStr => {
  *  ["X", null, "0"]
  * ]
  * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
+ * Function is based on concept of grid based on x,y co-ordinatest, mapping matching "X"s and "O"s with 
+  positions as follows:
+  03 13 23
+  04 14 24
+  05 15 25
+  Either three x values of 0, 1, or 2 will be a column of 3, or 3 y values of 3, 4 or 5 will be a row of 3
+  A string of co-ordinates made of the x and y values will check for special cases for diagonals
  * @param {Array} board
  */
 export const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
-  /* function getResults based on concept of grid of strings based on x,y co-ordinates, starting with 00
-  in top left, mapping matching "X"s and "O"s with positions in a grid and returning an object with 
-  arrays of matches to this grid:
-  03 13 23
-  04 14 24
-  05 15 25*/
-  function getResults(board) {
-    const XArray = [],
-      OArray = [];
-    const results = { X: XArray, 0: OArray };
-    for (let y = 0; y < 3; y++) {
-      for (let x = 0; x < 3; x++) {
-        const square = board[y][x];
-        if (square !== null) {
-          let str = `${x}${y + 3}`;
-          results[square].push(str);
-        }
-      }
-    }
-    return results;
-  }
-
-  function hasRow(result) {
-    let count = Object.keys(result).find(key => result[key] === 3);
-    if (result[count] === 3) {
-      return true;
-    }
-    return false;
-  }
-  /* function hasWon counts first and last characters in each string and counts
-  number of occurances of those characters, based on the concept that three
-  strings starting or ending with 3 of either 0, 1, 2, 3 or 5 will be a row of 3*/
-  function hasWon(player, results) {
-    const result = results[player].reduce(
-      (counter, numStr) => {
-        return {
-          ...counter,
-          [numStr[0]]: (counter[numStr[0]] += 1),
-          [numStr[1]]: (counter[numStr[1]] += 1),
-        };
-      },
-      {
+  function getResults(player, board) {
+    const coordinates = [],
+      count = {
         0: 0,
         1: 0,
         2: 0,
         3: 0,
         4: 0,
         5: 0,
+      };
+    const results = { coordinates: coordinates, count: count };
+    for (let y = 0; y < 3; y++) {
+      for (let x = 0; x < 3; x++) {
+        const square = board[y][x];
+        if (square !== null && square === player) {
+          const coordStr = `${x}${y + 3}`;
+          results.coordinates.push(coordStr);
+          results.count[x] += 1;
+          results.count[y + 3] += 1;
+        }
       }
-    );
-    return hasRow(result);
+    }
+    return results;
+  }
+
+  function hasRow(count) {
+    const found = Object.keys(count).find(key => count[key] === 3);
+    return count[found] === 3;
   }
 
   //special cases for diagonals
-  function findDiagonal(player, results) {
-    const diagonal1 = ["03", "14", "25"];
-    const diagonal2 = ["23", "14", "05"];
-    return (
-      diagonal1.every(i => results[player].includes(i)) ||
-      diagonal2.every(i => results[player].includes(i))
+  function findDiagonal(coordinates) {
+    const diagonals = [
+      ["03", "14", "25"],
+      ["23", "14", "05"],
+    ];
+    const diagnonalMatch = diagonals.find(diagonal =>
+      diagonal.every(numStr => coordinates.includes(numStr))
     );
+    return diagnonalMatch !== undefined ? true : false;
   }
 
-  const results = getResults(board);
-  if (findDiagonal("X", results) || hasWon("X", results)) {
-    return "X";
-  } else if (findDiagonal("0", results) || hasWon("0", results)) {
-    return "0";
+  function hasWon(player, board) {
+    const results = getResults(player, board);
+    return findDiagonal(results.coordinates) || hasRow(results.count)
+      ? true
+      : false;
   }
-  return null;
+
+  const players = ["X", "0"];
+  const winner = players.find(player => hasWon(player, board));
+  return winner === undefined ? null : winner;
 };
