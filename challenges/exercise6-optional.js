@@ -143,13 +143,11 @@ export const findWinner = board => {
         }
       }
     }
-    console.log(results);
     return results;
   }
 
   function hasRow(result) {
     let count = Object.keys(result).find(key => result[key] === 3);
-    console.log(result[count]);
     if (result[count] === 3) {
       return true;
     }
@@ -177,7 +175,6 @@ export const findWinner = board => {
         5: 0,
       }
     );
-    console.log(result);
     return hasRow(result);
   }
 
