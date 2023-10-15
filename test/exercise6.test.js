@@ -278,28 +278,28 @@ describe("findWinner", () => {
       ])
     ).toBe("X");
   });
-});
 
-test("no winner", () => {
-  expect(
-    findWinner([
-      ["0", null, "X"],
-      [null, null, "X"],
-      ["X", null, "0"],
-    ])
-  ).toBe(null);
-  expect(
-    findWinner([
-      [null, null, null],
-      [null, null, null],
-      [null, null, null],
-    ])
-  ).toBe(null);
-  expect(
-    findWinner([
-      ["0", "X", "0"],
-      ["0", "X", "0"],
-      ["X", "0", "X"],
-    ])
-  ).toBe(null);
+  test("no winner", () => {
+    expect(
+      findWinner([
+        ["0", null, "X"],
+        [null, null, "X"],
+        ["X", null, "0"],
+      ])
+    ).toBe(null);
+    expect(
+      findWinner([
+        [null, null, null],
+        [null, null, null],
+        [null, null, null],
+      ])
+    ).toBe(null);
+    expect(
+      findWinner([
+        ["0", "X", "0"],
+        ["0", "X", "0"],
+        ["X", "0", "X"],
+      ])
+    ).toBe(null);
+  });
 });
