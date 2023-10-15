@@ -16,7 +16,6 @@ export function shoppingList(list, newItem) {
 export function highestNumber(numbers) {
   if (!numbers) throw new Error("numbers are required");
   return Math.max(...numbers);
-  nhd;
 }
 
 export function splitThatString(string) {
