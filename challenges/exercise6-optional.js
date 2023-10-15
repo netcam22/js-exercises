@@ -153,11 +153,10 @@ export const findWinner = board => {
     }
     return false;
   }
-  /* function hasWon counts first and last characters in each co-ordinate string and counts
+  /* function hasWon counts first and last characters in each string and counts
   number of occurances of those characters, based on the concept that three
   strings starting or ending with 3 of either 0, 1, 2, 3 or 5 will be a row of 3*/
   function hasWon(player, results) {
-    // special cases for diagonals
     const result = results[player].reduce(
       (counter, numStr) => {
         return {
