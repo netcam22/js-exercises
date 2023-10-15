@@ -2,6 +2,7 @@ import {
   sumDigits,
   createRange,
   getScreentimeAlertList,
+  hexToRGB,
 } from "../challenges/exercise6-optional";
 
 describe("sumDigits", () => {
@@ -161,5 +162,35 @@ describe("getScreentimeAlertList", () => {
         "2019-05-04"
       )
     ).toStrictEqual(["beth_1234", "jane_1234"]);
+  });
+});
+
+describe("hexToRGB", () => {
+  test("Throws an error if not passed str parameter", () => {
+    expect(() => {
+      hexToRGB();
+    }).toThrow("hexStr is required");
+  });
+
+  test("Throws an error if hex string is invalid", () => {
+    expect(() => {
+      hexToRGB("#FF228");
+    }).toThrow("invalid hex string");
+  });
+
+  test("Throws an error if parameter passed is not a string", () => {
+    expect(() => {
+      hexToRGB(["hello", "world"]);
+    }).toThrow("parameter data type should be String");
+  });
+
+  test("Strings with valid HEX characters", () => {
+    expect(hexToRGB("#FF1133")).toBe("rgb(255,17,51)");
+    expect(hexToRGB("#FF5733")).toBe("rgb(255,87,51)");
+    expect(hexToRGB("#FFC300")).toBe("rgb(255,195,0)");
+    expect(hexToRGB("#FF5733")).toBe("rgb(255,87,51)");
+    expect(hexToRGB("#900C3F")).toBe("rgb(144,12,63)");
+    expect(hexToRGB("#581845")).toBe("rgb(88,24,69)");
+    expect(hexToRGB("#000000")).toBe("rgb(0,0,0)");
   });
 });
