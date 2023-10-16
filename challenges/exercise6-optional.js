@@ -139,7 +139,7 @@ export const findWinner = board => {
       for (let x in board[y]) {
         const square = board[y][x];
         if (square !== null && square === player) {
-          playerData.coordinates.push(`${x}${y + len}`);
+          playerData.coordinates.push(`${x}${parseInt(y) + len}`);
           playerData.count[x] === undefined
             ? (playerData.count[x] = 1)
             : (playerData.count[x] += 1);
@@ -153,14 +153,9 @@ export const findWinner = board => {
   }
 
   function getBoardMap(board) {
-    const boardMap = [];
-    for (let y in board) {
-      boardMap[y] = [];
-      for (let x in board[y]) {
-        boardMap[y][x] = `${x}${y + board.length}`;
-      }
-    }
-    return boardMap;
+    return board.map((column, y) =>
+      column.map((row, x, board) => `${x}${parseInt(y) + board.length}`)
+    );
   }
 
   function hasRow(count, len) {
