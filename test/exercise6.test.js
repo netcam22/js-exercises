@@ -279,6 +279,36 @@ describe("findWinner", () => {
     ).toBe("X");
   });
 
+  test("valid arrays of 5 x 5 boards", () => {
+    expect(
+      findWinner([
+        ["X", "0", "0", "0", "0"],
+        ["X", "X", "X", "X", "X"],
+        ["0", "X", "X", "0", "0"],
+        ["0", "X", "X", "X", "0"],
+        ["X", null, "0", "0", "0"],
+      ])
+    ).toBe("X");
+    expect(
+      findWinner([
+        ["X", "0", "0", "0", "0"],
+        ["X", "X", "X", "0", "X"],
+        ["0", "X", "X", "0", "0"],
+        ["0", "X", "X", "X", "0"],
+        ["X", null, "0", "0", "X"],
+      ])
+    ).toBe("X");
+    expect(
+      findWinner([
+        ["0", "0", "0", "0", "X"],
+        ["0", "X", "X", "0", "0"],
+        ["0", "X", "X", "X", "X"],
+        ["0", "X", "X", "X", "X"],
+        ["0", null, "0", "0", "X"],
+      ])
+    ).toBe("0");
+  });
+
   test("no winner", () => {
     expect(
       findWinner([
