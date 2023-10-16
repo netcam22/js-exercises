@@ -132,27 +132,35 @@ export const hexToRGB = hexStr => {
 export const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
 
-  function getResults(player, board) {
-    const results = { coordinates: [], count: {}, boardMap: [] },
+  function getPlayerData(player, board) {
+    const playerData = { coordinates: [], count: {} },
       len = board.length;
     for (let y in board) {
-      results.boardMap[y] = [];
       for (let x in board[y]) {
-        const square = board[y][x],
-          coordStr = `${x}${y + len}`;
-        results.boardMap[y][x] = coordStr;
+        const square = board[y][x];
         if (square !== null && square === player) {
-          results.coordinates.push(coordStr);
-          results.count[x] === undefined
-            ? (results.count[x] = 1)
-            : (results.count[x] += 1);
-          results.count[y + len] === undefined
-            ? (results.count[y + len] = 1)
-            : (results.count[y + len] += 1);
+          playerData.coordinates.push(`${x}${y + len}`);
+          playerData.count[x] === undefined
+            ? (playerData.count[x] = 1)
+            : (playerData.count[x] += 1);
+          playerData.count[y + len] === undefined
+            ? (playerData.count[y + len] = 1)
+            : (playerData.count[y + len] += 1);
         }
       }
     }
-    return results;
+    return playerData;
+  }
+
+  function getBoardMap(board) {
+    const boardMap = [];
+    for (let y in board) {
+      boardMap[y] = [];
+      for (let x in board[y]) {
+        boardMap[y][x] = `${x}${y + board.length}`;
+      }
+    }
+    return boardMap;
   }
 
   function hasRow(count, len) {
@@ -174,15 +182,16 @@ export const findWinner = board => {
     return diagnonalMatch !== undefined ? true : false;
   }
 
-  function hasWon(player, board) {
-    const results = getResults(player, board);
-    return findDiagonal(results.boardMap, results.coordinates) ||
-      hasRow(results.count, board.length)
+  function hasWon(player, board, boardMap) {
+    const playerData = getPlayerData(player, board);
+    return findDiagonal(boardMap, playerData.coordinates) ||
+      hasRow(playerData.count, board.length)
       ? true
       : false;
   }
 
   const players = ["X", "0"];
-  const winner = players.find(player => hasWon(player, board));
+  const boardMap = getBoardMap(board);
+  const winner = players.find(player => hasWon(player, board, boardMap));
   return winner === undefined ? null : winner;
 };
