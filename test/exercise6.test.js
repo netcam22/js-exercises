@@ -3,7 +3,7 @@ import {
   createRange,
   getScreentimeAlertList,
   hexToRGB,
-  findWinner,
+  findWinner
 } from "../challenges/exercise6-optional";
 
 describe("sumDigits", () => {
@@ -69,13 +69,13 @@ describe("createRange", () => {
 
   test("Range with negative numbers", () => {
     expect(createRange(-5, -20, -3)).toStrictEqual([
-      -5, -8, -11, -14, -17, -20,
+      -5, -8, -11, -14, -17, -20
     ]);
   });
 
   test("Range starting with 0", () => {
     expect(createRange(0, 100, 10)).toStrictEqual([
-      0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+      0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100
     ]);
   });
 });
@@ -103,21 +103,21 @@ describe("getScreentimeAlertList", () => {
             screenTime: [
               {
                 date: "2019-05-01",
-                usage: { twitter: 34, instagram: 22, facebook: 40 },
+                usage: { twitter: 34, instagram: 22, facebook: 40 }
               },
               {
                 date: "2019-05-02",
-                usage: { twitter: 56, instagram: 40, facebook: 31 },
+                usage: { twitter: 56, instagram: 40, facebook: 31 }
               },
               {
                 date: "2019-05-03",
-                usage: { twitter: 12, instagram: 15, facebook: 19 },
+                usage: { twitter: 12, instagram: 15, facebook: 19 }
               },
               {
                 date: "2019-05-04",
-                usage: { twitter: 10, instagram: 56, facebook: 61 },
-              },
-            ],
+                usage: { twitter: 10, instagram: 56, facebook: 61 }
+              }
+            ]
           },
           {
             username: "jane_1234",
@@ -125,21 +125,21 @@ describe("getScreentimeAlertList", () => {
             screenTime: [
               {
                 date: "2019-05-01",
-                usage: { twitter: 34, instagram: 22, facebook: 40 },
+                usage: { twitter: 34, instagram: 22, facebook: 40 }
               },
               {
                 date: "2019-05-02",
-                usage: { twitter: 56, instagram: 40, facebook: 31 },
+                usage: { twitter: 56, instagram: 40, facebook: 31 }
               },
               {
                 date: "2019-05-03",
-                usage: { twitter: 12, instagram: 15, facebook: 19 },
+                usage: { twitter: 12, instagram: 15, facebook: 19 }
               },
               {
                 date: "2019-05-04",
-                usage: { twitter: 10, instagram: 56, facebook: 61 },
-              },
-            ],
+                usage: { twitter: 10, instagram: 56, facebook: 61 }
+              }
+            ]
           },
           {
             username: "sam_j_1989",
@@ -147,18 +147,18 @@ describe("getScreentimeAlertList", () => {
             screenTime: [
               {
                 date: "2019-06-11",
-                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10 },
+                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 10 }
               },
               {
                 date: "2019-06-13",
-                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16 },
+                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 16 }
               },
               {
                 date: "2019-06-14",
-                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31 },
-              },
-            ],
-          },
+                usage: { mapMyRun: 0, whatsApp: 0, facebook: 0, safari: 31 }
+              }
+            ]
+          }
         ],
         "2019-05-04"
       )
@@ -208,42 +208,42 @@ describe("findWinner", () => {
       findWinner([
         ["X", "0", null],
         ["X", null, "0"],
-        ["X", null, "0"],
+        ["X", null, "0"]
       ])
     ).toBe("X");
     expect(
       findWinner([
         ["X", "0", "0"],
         ["0", null, "0"],
-        ["X", null, "0"],
+        ["X", null, "0"]
       ])
     ).toBe("0");
     expect(
       findWinner([
         ["X", null, "0"],
         ["X", "0", null],
-        ["X", null, "0"],
+        ["X", null, "0"]
       ])
     ).toBe("X");
     expect(
       findWinner([
         ["0", "X", "X"],
         ["0", "0", "0"],
-        ["X", null, "X"],
+        ["X", null, "X"]
       ])
     ).toBe("0");
     expect(
       findWinner([
         ["0", "X", "X"],
         ["X", null, "X"],
-        ["0", "0", "0"],
+        ["0", "0", "0"]
       ])
     ).toBe("0");
     expect(
       findWinner([
         ["0", "0", "0"],
         ["0", "X", "X"],
-        ["X", null, "X"],
+        ["X", null, "X"]
       ])
     ).toBe("0");
   });
@@ -253,28 +253,28 @@ describe("findWinner", () => {
       findWinner([
         ["0", "X", "X"],
         ["0", "0", "X"],
-        ["X", null, "0"],
+        ["X", null, "0"]
       ])
     ).toBe("0");
     expect(
       findWinner([
         ["0", "0", "X"],
         ["0", "X", "X"],
-        ["X", null, "0"],
+        ["X", null, "0"]
       ])
     ).toBe("X");
     expect(
       findWinner([
         ["0", "0", "X"],
         ["0", "X", "0"],
-        ["X", "0", "X"],
+        ["X", "0", "X"]
       ])
     ).toBe("X");
     expect(
       findWinner([
         ["X", "0", "X"],
         ["0", "X", "0"],
-        ["0", "0", "X"],
+        ["0", "0", "X"]
       ])
     ).toBe("X");
   });
@@ -286,7 +286,7 @@ describe("findWinner", () => {
         ["X", "X", "X", "X", "X"],
         ["0", "X", "X", "0", "0"],
         ["0", "X", "X", "X", "0"],
-        ["X", null, "0", "0", "0"],
+        ["X", null, "0", "0", "0"]
       ])
     ).toBe("X");
     expect(
@@ -295,7 +295,7 @@ describe("findWinner", () => {
         ["X", "X", "X", "0", "X"],
         ["0", "X", "X", "0", "0"],
         ["0", "X", "X", "X", "0"],
-        ["X", null, "0", "0", "X"],
+        ["X", null, "0", "0", "X"]
       ])
     ).toBe("X");
     expect(
@@ -304,9 +304,18 @@ describe("findWinner", () => {
         ["0", "X", "X", "0", "0"],
         ["0", "X", "X", "X", "X"],
         ["0", "X", "X", "X", "X"],
-        ["0", null, "0", "0", "X"],
+        ["0", null, "0", "0", "X"]
       ])
     ).toBe("0");
+    expect(
+      findWinner([
+        ["X", "0", "0", "0", "X"],
+        ["0", "X", "X", "0", "0"],
+        ["0", "X", "X", "X", "X"],
+        ["0", "0", "X", "X", "X"],
+        ["0", null, "0", "0", "X"]
+      ])
+    ).toBe("X");
   });
 
   test("no winner", () => {
@@ -314,21 +323,21 @@ describe("findWinner", () => {
       findWinner([
         ["0", null, "X"],
         [null, null, "X"],
-        ["X", null, "0"],
+        ["X", null, "0"]
       ])
     ).toBe(null);
     expect(
       findWinner([
         [null, null, null],
         [null, null, null],
-        [null, null, null],
+        [null, null, null]
       ])
     ).toBe(null);
     expect(
       findWinner([
         ["0", "X", "0"],
         ["0", "X", "0"],
-        ["X", "0", "X"],
+        ["X", "0", "X"]
       ])
     ).toBe(null);
   });
