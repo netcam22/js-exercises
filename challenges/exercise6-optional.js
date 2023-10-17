@@ -132,61 +132,72 @@ export const hexToRGB = hexStr => {
 export const findWinner = board => {
   if (board === undefined) throw new Error("board is required");
 
-  function getPlayerData(player, board) {
-    const playerData = { coordinates: [], count: {} },
-      len = board.length;
+  // not necessary for get winner but might be useful to extend function and map current state
+  function getPlayerCoordinates(player, board) {
+    const coordinates = [];
     for (let y in board) {
       for (let x in board[y]) {
         const square = board[y][x];
         if (square !== null && square === player) {
-          playerData.coordinates.push(`${x}${parseInt(y) + len}`);
-          playerData.count[x] === undefined
-            ? (playerData.count[x] = 1)
-            : (playerData.count[x] += 1);
-          playerData.count[y + len] === undefined
-            ? (playerData.count[y + len] = 1)
-            : (playerData.count[y + len] += 1);
+          coordinates.push(`${x}${parseInt(y) + board.length}`);
         }
       }
     }
-    return playerData;
+    return coordinates;
   }
 
+  // not necessary for get winner but might be useful to extend function and map curent state
   function getBoardMap(board) {
     return board.map((column, y) =>
       column.map((row, x, board) => `${x}${parseInt(y) + board.length}`)
     );
   }
 
+  function diagonalCount(player, board) {
+    const count = {},
+      len = board.length;
+    for (let i = 0; i < len; i++) {
+      const diagonals = [board[i][i], board[i][len - i - 1]];
+      for (let index in diagonals) {
+        if (diagonals[index] !== null && diagonals[index] === player) {
+          count[index] === undefined ? (count[index] = 1) : (count[index] += 1);
+        }
+      }
+    }
+    return count;
+  }
+
+  function rowCount(player, board) {
+    const count = {},
+      len = board.length;
+    for (let y in board) {
+      for (let x in board[y]) {
+        const square = board[y][x];
+        if (square !== null && square === player) {
+          count[x] === undefined ? (count[x] = 1) : (count[x] += 1);
+          count[parseInt(y) + len] === undefined
+            ? (count[parseInt(y) + len] = 1)
+            : (count[parseInt(y) + len] += 1);
+        }
+      }
+    }
+    return count;
+  }
+
   function hasRow(count, len) {
     const found = Object.keys(count).find(key => count[key] === len);
+    if (count[found] === undefined) return false;
     return count[found] === len;
   }
 
-  //special cases for diagonals
-  function findDiagonal(boardMap, coordinates) {
-    const end = boardMap.length - 1,
-      mid = Math.floor(boardMap.length / 2);
-    const diagonals = [
-      [boardMap[0][0], boardMap[mid][mid], boardMap[end][end]],
-      [boardMap[0][end], boardMap[mid][mid], boardMap[end][0]],
-    ];
-    const diagnonalMatch = diagonals.find(diagonal =>
-      diagonal.every(numStr => coordinates.includes(numStr))
-    );
-    return diagnonalMatch !== undefined ? true : false;
-  }
-
-  function hasWon(player, board, boardMap) {
-    const playerData = getPlayerData(player, board);
-    return findDiagonal(boardMap, playerData.coordinates) ||
-      hasRow(playerData.count, board.length)
+  function hasWon(player, board) {
+    return hasRow(diagonalCount(player, board), board.length) ||
+      hasRow(rowCount(player, board), board.length)
       ? true
       : false;
   }
 
   const players = ["X", "0"];
-  const boardMap = getBoardMap(board);
-  const winner = players.find(player => hasWon(player, board, boardMap));
+  const winner = players.find(player => hasWon(player, board));
   return winner === undefined ? null : winner;
 };
