@@ -122,9 +122,9 @@ export const hexToRGB = hexStr => {
  * The function should return "X" if player X has won, "0" if the player 0 has won, and null if there is currently no winner.
  * Function is based on concept of grid based on x,y co-ordinates, mapping matching "X"s and "O"s with 
   positions as follows:
-  03 13 23
-  04 14 24
-  05 15 25
+  00 01 02
+  10 11 12
+  20 21 22
   Either three x values of 0, 1, or 2 will be a column of 3, or 3 y values of 3, 4 or 5 will be a row of 3
   A string of co-ordinates made of the x and y values will check for special cases for diagonals
  * @param {Array} board
@@ -134,23 +134,17 @@ export const findWinner = board => {
 
   // not necessary for get winner but might be useful to extend function and map current state
   function getPlayerCoordinates(player, board) {
-    const coordinates = [];
-    for (let y in board) {
-      for (let x in board[y]) {
-        const square = board[y][x];
-        if (square !== null && square === player) {
-          coordinates.push(`${x}${parseInt(y) + board.length}`);
-        }
-      }
-    }
-    return coordinates;
+    return board.map((row, x, board) =>
+      row
+        .map((square, y, board) =>
+          square !== null && square === player ? `${x}${y}` : ""
+        )
+        .filter(coordinates => coordinates !== "")
+    );
   }
-
   // not necessary for get winner but might be useful to extend function and map curent state
   function getBoardMap(board) {
-    return board.map((column, y) =>
-      column.map((row, x, board) => `${x}${parseInt(y) + board.length}`)
-    );
+    return board.map((row, x) => row.map((square, y) => `${x}${y}`));
   }
 
   function diagonalCount(player, board) {
@@ -170,8 +164,8 @@ export const findWinner = board => {
   function rowCount(player, board) {
     const count = {},
       len = board.length;
-    for (let y in board) {
-      for (let x in board[y]) {
+    for (const y in board) {
+      for (const x in board[y]) {
         const square = board[y][x];
         if (square !== null && square === player) {
           count[x] === undefined ? (count[x] = 1) : (count[x] += 1);
@@ -184,15 +178,15 @@ export const findWinner = board => {
     return count;
   }
 
-  function hasRow(count, len) {
+  function hasRowOfBoardLen(count, len) {
     const found = Object.keys(count).find(key => count[key] === len);
     if (count[found] === undefined) return false;
     return count[found] === len;
   }
 
   function hasWon(player, board) {
-    return hasRow(diagonalCount(player, board), board.length) ||
-      hasRow(rowCount(player, board), board.length)
+    return hasRowOfBoardLen(diagonalCount(player, board), board.length) ||
+      hasRowOfBoardLen(rowCount(player, board), board.length)
       ? true
       : false;
   }
